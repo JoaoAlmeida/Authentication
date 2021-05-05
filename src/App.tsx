@@ -1,7 +1,9 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSpinner } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -22,19 +24,47 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-const App: React.FC = () => (
-  <IonApp>
+import { useEffect, useState } from 'react';
+import {getCurrentUser} from './pages/FirebaseServices'
+import Dashboard from './pages/Dashboard';
+
+const RoutingSystem: React.FC = () =>{
+  return(
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
         </Route>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />    
+        <Route exact path="/dashboard" component={Dashboard} /> 
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
-  </IonApp>
-);
+  )
+}
+
+const App: React.FC = () => {
+  
+  const [busy, setBusy] = useState<boolean>(true)
+  
+  /*Executado a primeira vez que o app é carregado */
+  useEffect(() =>{
+    
+    getCurrentUser().then(user => {
+      if(user){
+        //usuário logado        
+        window.history.replaceState({}, '', '/dashboard')
+      }else{
+        window.history.replaceState({}, '', '/')
+      }
+      setBusy(false)
+    })    
+  },[])
+   
+  return <IonApp> {busy ? <IonSpinner/>  : <RoutingSystem/>} </IonApp>
+}
 
 export default App;
