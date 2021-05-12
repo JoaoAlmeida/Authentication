@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
 
             <IonContent className="ion-padding">
                 <p>Olá Usuário {auth.currentUser?.email}</p>
-                <p> Testando {username} </p>
+                <p> Nome do usuário no Redux Store {username} </p>
 
                 <IonButton color="primary" onClick={off}> Sign out</IonButton>
             </IonContent>
