@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
+
 import { Provider } from 'react-redux';
 import  reducer from "./reducers/reducers"
 import { createStore } from 'redux';
@@ -13,7 +14,7 @@ import { createStore } from 'redux';
 firebase.initializeApp({
   apiKey: "AIzaSyAyIFNXbgfyXi0BCZ0pDhFOHMAp8jRD6Z8",
   authDomain: "authentication-4f6bc.firebaseapp.com",
-  projectId: "authentication-4f6bc",
+  projectId: "authentication-4f6bc",  
   storageBucket: "authentication-4f6bc.appspot.com",
   messagingSenderId: "1050374532831",
   appId: "1:1050374532831:web:122862fb539ff94787836a"

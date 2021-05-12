@@ -4,6 +4,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Upload from './pages/upload';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -40,6 +41,7 @@ const RoutingSystem: React.FC = () =>{
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />    
         <Route exact path="/dashboard" component={Dashboard} /> 
+        <Route exact path="/upload" component={Upload} /> 
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

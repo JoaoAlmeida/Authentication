@@ -1,4 +1,3 @@
-import { resolve } from 'node:url'
 import { auth } from '..'
 import { toast } from './Toast'
 
