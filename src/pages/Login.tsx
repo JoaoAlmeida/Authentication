@@ -1,6 +1,8 @@
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonInput, IonLoading, IonPage, IonTitle, IonToolbar } from "@ionic/react"
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
+import { setUserState } from "../reducers/actions"
 import { loginUser } from "./FirebaseServices"
 import { toast } from "./Toast"
 
@@ -13,7 +15,9 @@ const Login: React.FC = () => {
     /*useState é um hook que retorna o state value e uma função para atualizar este valor.
      Neste caso, estamos iniciando a variável com um valor em branco */
     const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')    
+    const [password, setPassword] = useState('')
+    
+    const dispatch = useDispatch()
 
     /* substitua pelo metodo do Firebase */ 
     async function login() {
@@ -21,9 +25,10 @@ const Login: React.FC = () => {
         setBusy(true)    
         console.log(username, password)        
         
-        const res = await loginUser(username,password)    
+        const res : any = await loginUser(username,password)    
         
         if(res){
+            dispatch(setUserState(res.user.email))
             toast("Você logou com sucesso")
         }
         

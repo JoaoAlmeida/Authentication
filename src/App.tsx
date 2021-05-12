@@ -27,6 +27,8 @@ import './theme/variables.css';
 import { useEffect, useState } from 'react';
 import {getCurrentUser} from './pages/FirebaseServices'
 import Dashboard from './pages/Dashboard';
+import { useDispatch } from 'react-redux';
+import { setUserState } from './reducers/actions';
 
 const RoutingSystem: React.FC = () =>{
   return(
@@ -49,13 +51,15 @@ const RoutingSystem: React.FC = () =>{
 const App: React.FC = () => {
   
   const [busy, setBusy] = useState<boolean>(true)
-  
+  const dispatch = useDispatch()
+
   /*Executado a primeira vez que o app é carregado */
   useEffect(() =>{
     
-    getCurrentUser().then(user => {
+    getCurrentUser().then((user : any) => {
       if(user){
-        //usuário logado        
+        //usuário logado  
+        dispatch(setUserState(user.email))      
         window.history.replaceState({}, '', '/dashboard')
       }else{
         window.history.replaceState({}, '', '/')

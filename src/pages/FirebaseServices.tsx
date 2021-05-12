@@ -15,7 +15,7 @@ export async function loginUser(username: string, password: string) {
             window.location.href = "./home"
         })
         console.log(res)
-        return true
+        return res
     } catch (error) {
         console.log(error.message)
         toast(error.message, 10000)

@@ -2,14 +2,19 @@ import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonPage, I
 import React from "react"
 import { signOff } from "./FirebaseServices"
 import { auth } from '..'
+import { useSelector } from "react-redux"
+import { State } from "ionicons/dist/types/stencil-public-runtime"
 
 const Dashboard: React.FC = () => {        
-
+    
+    const username = useSelector((state: any) => state.user.username)
+    
     async function off() {
        signOff()       
     }
     
-    return (
+    return (              
+
         <IonPage>
             <IonHeader>
                 <IonToolbar>
@@ -26,6 +31,7 @@ const Dashboard: React.FC = () => {
 
             <IonContent className="ion-padding">
                 <p>Olá Usuário {auth.currentUser?.email}</p>
+                <p> Testando {username} </p>
 
                 <IonButton color="primary" onClick={off}> Sign out</IonButton>
             </IonContent>
