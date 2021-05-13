@@ -2,7 +2,7 @@ import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonInput, 
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { setUserState } from "../reducers/actions"
+import { setUserDate, setUserState } from "../reducers/actions"
 import { loginUser } from "./FirebaseServices"
 import { toast } from "./Toast"
 
@@ -17,6 +17,7 @@ const Login: React.FC = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     
+    //Dispatch modifica a árvore de estados da aplicação
     const dispatch = useDispatch()
 
     /* substitua pelo metodo do Firebase */ 
@@ -26,9 +27,11 @@ const Login: React.FC = () => {
         console.log(username, password)        
         
         const res : any = await loginUser(username,password)    
+        const date = Date().toLocaleString()
         
         if(res){
-            dispatch(setUserState(res.user.email))
+            dispatch(setUserState(res.user.email))            
+            dispatch(setUserDate(date))
             toast("Você logou com sucesso")
         }
         

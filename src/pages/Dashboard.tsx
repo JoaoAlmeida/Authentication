@@ -3,11 +3,11 @@ import React from "react"
 import { signOff } from "./FirebaseServices"
 import { auth } from '..'
 import { useSelector } from "react-redux"
-import { State } from "ionicons/dist/types/stencil-public-runtime"
 
 const Dashboard: React.FC = () => {        
     
-    const username = useSelector((state: any) => state.user.username)
+    const username = useSelector((state: any) => state.user.username)    
+    const date = useSelector((state: any) => state.user.lastLogin) 
     
     async function off() {
        signOff()       
@@ -30,9 +30,9 @@ const Dashboard: React.FC = () => {
             
 
             <IonContent className="ion-padding">
-                <p>Olá Usuário {auth.currentUser?.email}</p>
-                <p> Nome do usuário no Redux Store {username} </p>
-
+                
+                <p> Nome do usuário no Redux Store {username}, data {date} </p>
+                
                 <IonButton color="primary" onClick={off}> Sign out</IonButton>
             </IonContent>
 
