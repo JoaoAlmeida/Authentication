@@ -6,7 +6,6 @@ import { setUserDate, setUserState } from "../reducers/actions"
 import { loginUser } from "./FirebaseServices"
 import { toast } from "./Toast"
 
-
 /* A ! em e.detail.value informa que o valor não pode ser nulo */
 const Login: React.FC = () => {
 
@@ -19,25 +18,26 @@ const Login: React.FC = () => {
     
     //Dispatch modifica a árvore de estados da aplicação
     const dispatch = useDispatch()
-
+    
     /* substitua pelo metodo do Firebase */ 
     async function login() {
        
         setBusy(true)    
         console.log(username, password)        
         
-        const res : any = await loginUser(username,password)    
-        const date = Date().toLocaleString()
+        const res: any = await loginUser(username,password)            
         
-        if(res){
-            dispatch(setUserState(res.user.email))            
-            dispatch(setUserDate(date))
+        if(res){ 
+            
+            dispatch(setUserState(res.user.email))  
+            dispatch(setUserDate(Date().toLocaleString()))                                     
             toast("Você logou com sucesso")
         }
         
         setBusy(false)    
     }
 
+    
     return (
         <IonPage>
             <IonHeader>
@@ -62,9 +62,7 @@ const Login: React.FC = () => {
                 <p>
                     Novo por aqui? <Link to="./register"> Registrar</Link>
                 </p>
-
             </IonContent>
-
         </IonPage>
     )
 }

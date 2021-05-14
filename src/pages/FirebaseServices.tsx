@@ -12,14 +12,13 @@ export async function loginUser(username: string, password: string) {
         
         const res = await auth.signInWithEmailAndPassword(email, password).then(function () {
             console.log("redirect")
-            window.location.href = "./home"
-        })
-        console.log(res)
+            window.location.href = "./dashboard"
+        })        
         return res
     } catch (error) {
         console.log(error.message)
         toast(error.message, 10000)
-        return false
+        return null
     }
 }
 
@@ -39,7 +38,7 @@ export async function registerUser(username: string, password: string) {
     }
 }
 
-export function getCurrentUser() {
+export async function getCurrentUser() {
     return new Promise((resolve, reject) => {
         const unsubscribe = auth.onAuthStateChanged(function (user) {
             if (user) {

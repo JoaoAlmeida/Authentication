@@ -25,21 +25,21 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 import { useEffect, useState } from 'react';
-import {getCurrentUser} from './pages/FirebaseServices'
+import { getCurrentUser } from './pages/FirebaseServices'
 import Dashboard from './pages/Dashboard';
 import { useDispatch } from 'react-redux';
-import { setUserState } from './reducers/actions';
+import { setUserDate, setUserState } from './reducers/actions';
 
-const RoutingSystem: React.FC = () =>{
-  return(
+const RoutingSystem: React.FC = () => {
+  return (
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
         </Route>
         <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />    
-        <Route exact path="/dashboard" component={Dashboard} /> 
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>
@@ -49,26 +49,27 @@ const RoutingSystem: React.FC = () =>{
 }
 
 const App: React.FC = () => {
-  
+
   const [busy, setBusy] = useState<boolean>(true)
   const dispatch = useDispatch()
 
   /*Executado a primeira vez que o app é carregado */
-  useEffect(() =>{
-    
-    getCurrentUser().then((user : any) => {
-      if(user){
-        //usuário logado  
-        dispatch(setUserState(user.email))      
+  useEffect(() => {
+
+    getCurrentUser().then((user: any) => {
+      if (user) {
+        //usuário logado                     
+          //dispatch(setUserState(user.email))
+          //dispatch(setUserDate(Date().toLocaleString()))    
         window.history.replaceState({}, '', '/dashboard')
-      }else{
+      } else {
         window.history.replaceState({}, '', '/')
       }
       setBusy(false)
-    })    
-  },[])
-   
-  return <IonApp> {busy ? <IonSpinner/>  : <RoutingSystem/>} </IonApp>
+    })
+  }, [dispatch])
+
+  return <IonApp> {busy ? <IonSpinner /> : <RoutingSystem />} </IonApp>
 }
 
 export default App;
