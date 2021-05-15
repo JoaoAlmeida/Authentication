@@ -25,15 +25,15 @@ const Login: React.FC = () => {
         setBusy(true)    
         console.log(username, password)        
         
-        const res: any = await loginUser(username,password)            
-        
-        if(res){ 
-            
-            dispatch(setUserState(res.user.email))  
+        const res = await loginUser(username,password)            
+        console.log("Res: ", res.type)
+        if(res.type){            
+            console.log("email: ", res.email)
+            dispatch(setUserState(res.email))  
             dispatch(setUserDate(Date().toLocaleString()))                                     
             toast("Você logou com sucesso")
         }
-        
+        window.location.href = "./dashboard"            
         setBusy(false)    
     }
 

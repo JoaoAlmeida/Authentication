@@ -7,18 +7,17 @@ export async function loginUser(username: string, password: string) {
     Se o usuário existir, abrir uma página de usuário, caso contrário apresentar um erro */
 
     const email = `${username}@app.com`
-
-    try {
-        
-        const res = await auth.signInWithEmailAndPassword(email, password).then(function () {
-            console.log("redirect")
-            window.location.href = "./dashboard"
-        })        
-        return res
+    
+    try {        
+        const res = await auth.signInWithEmailAndPassword(email, password)//.then(function () {
+           // console.log("redirect")
+            //window.location.href = "./dashboard"            
+        //})        
+        return {type: true, email: res.user?.email}
     } catch (error) {
         console.log(error.message)
         toast(error.message, 10000)
-        return null
+        return {type: false, email: ''}
     }
 }
 
