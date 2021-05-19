@@ -21,14 +21,14 @@ firebase.initializeApp({
 
 export const auth = firebase.auth();
 
-const store = createStore(reducer)
+export const store = createStore(reducer)
 
 ReactDOM.render(
-  <Provider store={store}>
-  <React.StrictMode>    
+  <React.StrictMode>
+  <Provider store={store}>    
     <App />
-  </React.StrictMode>
-  </Provider>,
+  </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
